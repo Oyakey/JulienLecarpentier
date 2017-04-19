@@ -1,0 +1,61 @@
+<html>
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	</head>
+	<body>
+
+		<div style="padding-bottom: 14%; background-color: black; width: 100%;"></div>
+
+	</body>
+
+	<script type="text/javascript">
+/*
+		var actx;
+
+		window.addEventListener('load', init, false);
+
+		function init() {
+
+	 		try {
+	    	// Fix up for prefixing
+	    		window.AudioContext = window.AudioContext||window.webkitAudioContext;
+
+	    		actx = new AudioContext();
+	  		}
+	  		catch(e) {
+	    		alert('Web Audio API is not supported in this browser');
+	  		}
+		}
+*/
+		var dogBarkingBuffer = null;
+		// Fix up prefixing
+		window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+		var context = new AudioContext();
+
+		function loadDogSound(url) {
+			var request = new XMLHttpRequest();
+
+			request.open('GET', url, true);
+
+			request.responseType = 'arraybuffer';
+
+			// Decode asynchronously
+			request.onload = function() {
+				context.decodeAudioData(request.response, function(buffer) {
+					dogBarkingBuffer = buffer;
+					console.log(buffer);
+				}, onError);
+			}
+			request.send();
+			console.log(request);
+		}
+
+		loadDogSound("test");
+
+
+
+	</script>
+
+</html>

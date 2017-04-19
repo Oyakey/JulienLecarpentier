@@ -1,0 +1,267 @@
+<html>
+	<head>
+		<title>Book Multimédia</title>
+
+		<meta charset="utf-8"/>
+   		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="CSS/style.css">
+		<script type="text/javascript" src="Script/soundbox.js"></script>
+	</head>
+	<body>
+
+		<!-- <img src="img/logo.png" alt="Logo Oyakey" width="300px"/> -->
+
+		<div id="logo"></div>
+		<h2>DRUMPAD</h2>
+
+			<nav id="drums">
+				<div class="drum" id="drum1" onclick="setDrum(d1);"></div>
+				<div class="drum" id="drum2" onclick="setDrum(d2);"></div>
+				<div class="drum" id="drum3" onclick="setDrum(d3);"></div>
+			</nav>
+			<nav id="Basses">
+			<div class="bass" id="bass1" onclick="setBass(b1);"></div>
+			<div class="bass" id="bass2" onclick="setBass(b2);"></div>
+			<div class="bass" id="bass3" onclick="setBass(b3);"></div>
+			</nav>
+			<!--Leads-->
+			<nav id="leads">
+				<div class="lead" id="lead1" onclick="setLead(l1);"></div>
+				<div class="lead" id="lead2" onclick="setLead(l2);"></div>
+				<div class="lead" id="lead3" onclick="setLead(l3);"></div>
+			</nav>
+			<div id="fond" class="tuto"></div>
+			<div id="tuto" class="tuto">
+				<div id="box" class="tuto">
+					<h1>Bienvenue !</h1>
+					<p>Pour Jouer, cliquez sur "ok",<br/>puis cliquez sur les boutons de couleur.<br/><br/>
+					Les boutons bleus jouent des percussions,<br/>
+					les rouges jouent des lignes de basses,<br/>
+					Et les violets jouent les son principaux du morceau.
+
+					</p>
+					<button id='close'>Ok</button>
+				</div>
+			</div>
+
+			<div id="contact">
+				<div id="contactbox" class="contact">
+					<p>Vous venez de recréer une de mes compositions ! J'ai réaliser tous le contenu de l'application, allant de la création des sons à la programmation de l'application, en passant par la réalisation des images, logos, boutons ..
+					<br/><br/>
+					Actuellement étudiant en multimédia, je suis passionné d'art, en particulier de musique et de graphisme.
+					<br/><br/>
+					Si vous avez aimé cette démonstration, vous pouvez me contacter par mail, sur facebook, sur linkedin.
+					</p>
+					<a href="mailto:julien-lecarpentier@orange.fr">Mail</a>|
+					<a href="https://www.facebook.com/aiakos.oyakey">Facebook</a>|
+					<a href="https://www.linkedin.com/in/julien-lecarpentier-503216129?trk=hp-identity-name">Linkedin</a>
+				</div>
+			</div>
+
+
+	</body>
+	<script src="./Tools/howler.js-master/dist/howler.js"></script>
+	<script src="./Tools/jquery-3.1.1.js"></script>
+	<script>
+
+	
+	$(window).ready(function(){
+	});
+
+//-------------Défini les clips----------------
+
+	    var d1 = new Howl({
+	      src: ['./loops/drum_1.mp3']
+	    });
+
+	    var d2 = new Howl({
+	      src: ['./loops/drum_2.mp3']
+	    });
+
+	    var d3 = new Howl({
+	      src: ['./loops/drum_3.mp3']
+	    });
+
+	    var b1 = new Howl({
+	      src: ['./loops/bass_1.mp3']
+	    });
+
+	    var b2 = new Howl({
+	      src: ['./loops/bass_2.mp3']
+	    });
+
+	    var b3 = new Howl({
+	      src: ['./loops/bass_3.mp3']
+	    });
+
+	    var l1 = new Howl({
+	      src: ['./loops/lead_1.mp3']
+	    });
+
+	    var l2 = new Howl({
+	      src: ['./loops/lead_2.mp3']
+	    });
+
+	    var l3 = new Howl({
+	      src: ['./loops/lead_3.mp3']
+	    });
+
+//-------------Initialise les variables----------------
+
+		var playlist = [];
+
+		var playing = false;
+
+		var setloop;
+
+		var drum;
+
+		var bass;
+
+		var lead;
+
+		$('div').click(playSong);
+
+//-------------Ajoute ou enlève des clips de la playlist----------------
+
+		function setDrum(d) {
+			if (drum == d) {
+				drum = undefined;
+			}
+			else {
+				drum = d;
+			}
+			//song();
+			console.log(drum);
+		}
+
+		function setBass(b) {
+			if (bass == b) {
+				bass = undefined;
+			}
+			else {
+				bass = b;
+			}
+			//song();
+			console.log(bass);
+		}
+
+		function setLead(l) {
+			if (lead == l) {
+				lead = undefined;
+			}
+			else {
+				lead = l;
+			}
+			//song();
+			console.log(lead);
+		}
+
+//-------------------Joue/arrète la playlist (à modifier)-------------------
+
+		function playSong() {
+			if (!playing) {
+
+				if (drum !== undefined) drum.play();
+				if (bass !== undefined) bass.play();
+				if (lead !== undefined) lead.play();
+
+				setloop = setInterval(function () {
+
+					if (drum === undefined && 
+						bass === undefined && 
+						lead === undefined) {
+
+						clearInterval(setloop);
+						playing = false;
+
+					}
+
+					if (drum !== undefined) drum.play();
+					if (bass !== undefined) bass.play();
+					if (lead !== undefined) lead.play();
+
+				},7549); // 1 bar = 3788, 2 bar = 7549
+
+				playing = true;
+			}
+		}
+
+//---------------------Fais briller les boutons--------------------------
+
+		//Drums
+		$('.drum').click( function(){
+
+			if(($('.active').length == 0) && !($(this).hasClass("active"))) {
+
+				$(this).toggleClass('active');
+
+			}
+
+			else if(($('.active').length > 0) && !($(this).hasClass("active"))) {
+
+				$('.drum').removeClass('active');
+
+				$(this).toggleClass('active');
+
+			}
+
+			else $('.drum').removeClass('active');
+
+		});
+
+		//Bass
+		$('.bass').click( function(){
+
+			if(($('.active').length == 0) && !($(this).hasClass("active"))) {
+
+				$(this).toggleClass('active');
+
+			}
+
+			else if(($('.active').length > 0) && !($(this).hasClass("active"))) {
+
+				$('.bass').removeClass('active');
+
+				$(this).toggleClass('active');
+
+			}
+
+			else $('.bass').removeClass('active');
+		});
+
+			//Leads
+			$('.lead').click( function(){
+
+			if(($('.active').length == 0) && !($(this).hasClass("active"))) {
+
+				$(this).toggleClass('active');
+
+			}
+
+			else if(($('.active').length > 0) && !($(this).hasClass("active"))) {
+
+				$('.lead').removeClass('active');
+
+				$(this).toggleClass('active');
+
+			}
+
+			else $('.lead').removeClass('active');
+
+
+		});
+
+		$('#close').click( function() { $('.tuto').fadeOut(200); });
+
+		$('#contact').hide();
+
+		$(window).click( function() { 
+			if ((drum !== undefined) && (bass !== undefined) && (lead !== undefined)) {
+			$('#contact').fadeIn(500);
+			}
+		});
+
+	</script>
+
+</html>

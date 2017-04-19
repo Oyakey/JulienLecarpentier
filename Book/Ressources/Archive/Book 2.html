@@ -1,0 +1,192 @@
+<html>
+
+	<head>
+		<title>Book Multimédia</title>
+		<meta charset="utf-8"/>
+   		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+		<link rel="stylesheet" type="text/css" href="CSS/style.css">
+		<script type="text/javascript" src="Script/soundbox.js"></script>
+	</head>
+	<body>
+			<nav id="drums">
+				<div class="drum" id="drum1" onclick="addToPlaylist(d1);"></div>
+				<div class="drum" id="drum2" onclick="addToPlaylist(d2);"></div>
+			</nav>
+			<nav id="Basses">
+			<div class="bass" id="bass1" onclick="addToPlaylist(b1);"></div>
+			</nav>
+			<!--Leads-->
+
+	</body>
+	<script src="./Tools/howler.js-master/dist/howler.js"></script>
+	<script src="./Tools/jquery-3.1.1.js"></script>
+	<script>
+
+//-------------Défini les clips----------------
+
+	    var d1 = new Howl({
+	      src: ['drum_1.mp3']
+	    });
+
+	    var d2 = new Howl({
+	      src: ['drum_2.mp3']
+	    });
+
+	    var b1 = new Howl({
+	      src: ['bass_1.mp3']
+	    });
+
+//-------------Initialise les variables----------------
+
+		var playlist = [];
+
+		var playing = false;
+
+		var setloop;
+
+		var drum;
+
+		var bass;
+
+		var lead;
+
+		$('div').click(playSong);
+
+//-------------Ajoute ou enlève des clips de la playlist----------------
+
+		setDrum(b1);
+
+		setDrum(b1);
+
+		function setDrum(d) {
+			if (drum == d) {
+				drum = undefined;
+			}
+			else {
+				drum = d;
+			}
+			//song();
+			console.log(drum);
+		}
+
+		function song() {
+
+		}
+
+//-------------Ajoute ou enlève des clips de la playlist----------------
+
+		function addToPlaylist(e){
+			var inPlaylist = false;
+			var index;
+			for (var i = 0; i < playlist.length; i++) {
+				if (playlist[i] == e) {
+					inPlaylist = true;
+					index = i;
+				}
+			}
+			if (inPlaylist) {
+				playlist.splice(index, 1);
+			}
+			else {
+			playlist.push(e);
+			}
+		}
+
+//-------------------Joue/arrète la playlist (à modifier)-------------------
+
+		function playSong(){
+			if (!playing) {
+
+				for (var i = 0; i < playlist.length; i++) {
+						playlist[i].play();
+					};
+
+				setloop = setInterval(function () {
+					if (playlist.length < 1) {
+						clearInterval(setloop);
+						playing = false;
+					}
+					for (var i = 0; i < playlist.length; i++) {
+						playlist[i].play();
+					};
+				},3788);
+
+				playing = true;
+
+			}
+
+		/*	else {
+				clearInterval(setloop);
+				playing = false;
+			}
+		*/
+		}
+
+//---------------------Fais briller les boutons--------------------------
+
+		//Drums
+		$('.drum').click( function(){
+
+			if(($('.active').length == 0) && !($(this).hasClass("active"))) {
+
+				$(this).toggleClass('active');
+
+			}
+
+			else if(($('.active').length > 0) && !($(this).hasClass("active"))) {
+
+				$('.drum').removeClass('active');
+
+				$(this).toggleClass('active');
+
+			}
+
+			else $('.drum').removeClass('active');
+
+		});
+
+		//Bass
+		$('.bass').click( function(){
+
+			if(($('.active').length == 0) && !($(this).hasClass("active"))) {
+
+				$(this).toggleClass('active');
+
+			}
+
+			else if(($('.active').length > 0) && !($(this).hasClass("active"))) {
+
+				$('.bass').removeClass('active');
+
+				$(this).toggleClass('active');
+
+			}
+
+			else $('.bass').removeClass('active');
+		});
+
+			//Leads
+			$('.lead').click( function(){
+
+			if(($('.active').length == 0) && !($(this).hasClass("active"))) {
+
+				$(this).toggleClass('active');
+
+			}
+
+			else if(($('.active').length > 0) && !($(this).hasClass("active"))) {
+
+				$('.drum').removeClass('active');
+
+				$(this).toggleClass('active');
+
+			}
+
+			else $('.drum').removeClass('active');
+
+
+		});
+
+	</script>
+
+</html>
