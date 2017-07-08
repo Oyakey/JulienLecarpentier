@@ -23,9 +23,14 @@
 	button {
 		background-color: #0b82f6;
 		color: white;
-		border: solid #4a7fc5 1px;
+		border: solid #235eab 1px;
 		border-radius: 3px;
 		padding: 6px 12px 6px 12px;
+	}
+
+	button:hover {
+		background-color: #235eab;
+		transition: background-color 0.2s;
 	}
 
 	#content {
@@ -33,34 +38,40 @@
 		text-align: center;
 	}
 
+	span:hover {
+		color: #0b82f6;
+	}
+
 </style>
 <script type="text/javascript">
 
+	var intro;
+	var subject;
+	var bonus;
+	var end;
+	var prank = "";
+
 	function generate() {
 
-		var intro = ['PRANK '];
+		intro = ['PRANK '];
 
-		var subject = ['MA COPINE ', 'MOMO ', 'EDDY MALOU ', 'CET HOMME ', 'CETTE FEMME ', 'KENNY ', 'DAVID LAFARGE '];
+		subject = ['MA COPINE ', 'MOMO ', 'EDDY MALOU ', 'CET HOMME ', 'CETTE FEMME ', 'KENNY ', 'DAVID LAFARGE '];
 
-		var action = ['RATE SON RAMADAN ', 'ME TROMPE ', 'SE FAIS AGRESSER ', 'SE FAIS CONTROLLER '];
+		action = ['RATE SON RAMADAN ', 'ME TROMPE ', 'SE FAIS AGRESSER ', 'SE FAIS CONTROLLER '];
 
-		var bonus = ['AVEC UN HANDSPINNER ', 'AVEC SQUEEZIE ', 'EN PUBLIC ', 'DANS LA RUE '];
+		bonus = ['AVEC UN HANDSPINNER ', 'AVEC SQUEEZIE ', 'EN PUBLIC ', 'DANS LA RUE '];
 
-		var end = ['SA TOURNE MAL ', 'EXPLICATION ', 'NO FAKE ', '[+18] ', ', LA SUITE VA VOUS ETONNER '];
+		end = ['SA TOURNE MAL ', 'EXPLICATION ', 'NO FAKE ', '[+18] ', ', LA SUITE VA VOUS ETONNER ', 'SA REACTION VA VOUS CHOQUEZ '];
 
-		console.log();
+		prank += "<span onclick='update(0)' id='sp0'>"+intro[Math.floor((Math.random() * intro.length))]+"</span>";
 
-		var prank = "";
+		prank += "<span onclick='update(1)' id='sp1'>"+subject[Math.floor((Math.random() * subject.length))]+"</span>";
 
-		prank += intro[Math.floor((Math.random() * intro.length))];
+		prank += "<span onclick='update(2)' id='sp2'>"+action[Math.floor((Math.random() * action.length))]+"</span>";
 
-		prank += subject[Math.floor((Math.random() * subject.length))];
+		prank += "<span onclick='update(3)' id='sp3'>"+bonus[Math.floor((Math.random() * bonus.length))]+"</span>";
 
-		prank += action[Math.floor((Math.random() * action.length))];
-
-		prank += bonus[Math.floor((Math.random() * bonus.length))];
-
-		prank += end[Math.floor((Math.random() * end.length))];
+		prank += "<span onclick='update(4)' id='sp4'>"+end[Math.floor((Math.random() * end.length))]+"</span>";
 
 		$('#content').html("");
 
@@ -69,6 +80,26 @@
 			"<button onclick='generate()'>Generer</button>"
 			);
 
+	}
+
+	function update(id) {
+		switch (id) {
+			case 0:
+				$('#sp0').html(intro[Math.floor((Math.random() * intro.length))]);
+				break;
+			case 1:
+				$('#sp1').html(subject[Math.floor((Math.random() * subject.length))]);
+				break;
+			case 2:
+				$('#sp2').html(action[Math.floor((Math.random() * action.length))]);
+				break;
+			case 3:
+				$('#sp3').html(bonus[Math.floor((Math.random() * bonus.length))]);
+				break;
+			case 4:
+				$('#sp4').html(end[Math.floor((Math.random() * end.length))]);
+				break;
+		}
 	}
 
 	generate();
