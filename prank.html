@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>PRANK</title>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.js"></script>
+</head>
+<body>
+	<div id='content'></div>
+</body>
+<style type="text/css">
+	body {
+		font-family: roboto, arial, helvetica;
+		font-size: 12px;
+		
+	}
+
+	h1 {
+		font-weight: normal;
+		margin: 32px;
+	}
+
+	button {
+		background-color: #0b82f6;
+		color: white;
+		border: solid #4a7fc5 1px;
+		border-radius: 3px;
+		padding: 6px 12px 6px 12px;
+	}
+
+	#content {
+		margin-top: 20%;
+		text-align: center;
+	}
+
+</style>
+<script type="text/javascript">
+
+	function generate() {
+
+		var intro = ['PRANK '];
+
+		var subject = ['MA COPINE ', 'MOMO ', 'EDDY MALOU ', 'CET HOMME ', 'CETTE FEMME ', 'KENNY ', 'DAVID LAFARGE '];
+
+		var action = ['RATE SON RAMADAN ', 'ME TROMPE ', 'SE FAIS AGRESSER ', 'SE FAIS CONTROLLER '];
+
+		var bonus = ['AVEC UN HANDSPINNER ', 'AVEC SQUEEZIE ', 'EN PUBLIC ', 'DANS LA RUE '];
+
+		var end = ['SA TOURNE MAL ', 'EXPLICATION ', 'NO FAKE ', '[+18] ', ', LA SUITE VA VOUS ETONNER '];
+
+		console.log();
+
+		var prank = "";
+
+		prank += intro[Math.floor((Math.random() * intro.length))];
+
+		prank += subject[Math.floor((Math.random() * subject.length))];
+
+		prank += action[Math.floor((Math.random() * action.length))];
+
+		prank += bonus[Math.floor((Math.random() * bonus.length))];
+
+		prank += end[Math.floor((Math.random() * end.length))];
+
+		$('#content').html("");
+
+		$('#content').append(
+			"<h1 class='title'>" + prank + "!</h1>" +
+			"<button onclick='generate()'>Generer</button>"
+			);
+
+	}
+
+	generate();
+
+</script>
+</html>
